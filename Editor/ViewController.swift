@@ -9,8 +9,20 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    // View
+    // Views
     let editorView = UITextView()
+    lazy var doneButton : UIButton = {
+        let button = UIButton(type: .custom)
+        button.backgroundColor = .clear
+        button.setTitle("Done", for: .normal)
+        button.setTitle("Done", for: .selected)
+        button.tintColor = UIColor.white
+        button.addTarget(self, action: #selector(toggleState), for: .touchUpInside)
+        return button
+    }()
+    
+    // State
+    var isTextEditing = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,12 +48,16 @@ class ViewController: UIViewController {
     
     private func setupEditorView() {
         
+        let attributedString = NSMutableAttributedString(string: "Some attributed text\ngoogle.com\nbing.com", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 21)])
+        attributedString.addAttribute(.link, value: "https://www.google.com", range: NSRange(location: 21, length: 10))
+        attributedString.addAttribute(.link, value: "https://www.bing.com", range: NSRange(location: 32, length: 8))
+        
         editorView.isSelectable = true
         editorView.isUserInteractionEnabled = true
-        editorView.font = .systemFont(ofSize: 21)
-        editorView.text = "Edit Me!\n\nHello World\nwww.google.com"
+        editorView.attributedText = attributedString
         editorView.dataDetectorTypes = .link
         editorView.becomeFirstResponder()
+        editorView.delegate = self
         
         // Initial state
         switchToEditingState()
@@ -60,14 +76,13 @@ class ViewController: UIViewController {
         tapLocation.x -= textVIew.textContainerInset.left
         tapLocation.y -= textVIew.textContainerInset.top
         
-        // Update the cursor position
-        updateCursor(textVIew, tapLocation)
-        
-        // Determine whether user tapped on a link or not
-        openLinkOrEditText(textVIew, tapLocation)
+        openLinkOrEditText(tapLocation) {
+            updateCursor(textVIew, tapLocation)
+            switchToEditingState()
+        }
     }
     
-    private func updateCursor(_ textView: UITextView, 
+    private func updateCursor(_ textView: UITextView,
                               _ location: CGPoint) {
         // Position the cursor at the nearest location
         if let textPosition = textView.closestPosition(to: location) {
@@ -78,53 +93,65 @@ class ViewController: UIViewController {
         }
     }
     
-    private func openLinkOrEditText(_ textVIew: UITextView,
-                                    _ location: CGPoint) {
-        
-        let layoutManager = textVIew.layoutManager
+    private func openLinkOrEditText(_ location: CGPoint,
+                                    _ editText: (() -> Void)) {
+        let layoutManager = editorView.layoutManager
+        let textContainer = editorView.textContainer
         // Convert tap coordinates to the nearest glyph index
-        let glyphIndex: Int = layoutManager.glyphIndex(for: location, in: textVIew.textContainer, fractionOfDistanceThroughGlyph: nil)
-        // Check to see whether the mouse actually lies over the glyph it is nearest to
-        let glyphRect = layoutManager.boundingRect(forGlyphRange: NSRange(location: glyphIndex, length: 1), in: textVIew.textContainer)
-        
+        let glyphIndex: Int = layoutManager.glyphIndex(for: location, in: textContainer, fractionOfDistanceThroughGlyph: nil)
+        let glyphRect = layoutManager.boundingRect(forGlyphRange: NSRange(location: glyphIndex, length: 1), in: textContainer)
+        // Check whether the tap actually lies over the glyph it is nearest to
         if glyphRect.contains(location) {
             // Convert the glyph index to a character index
             let characterIndex: Int = layoutManager.characterIndexForGlyph(at: glyphIndex)
-            let attributeName = NSAttributedString.Key.link
-            // Get the attribute at charater index
-            let attributeValue = textVIew.textStorage.attribute(attributeName, at: characterIndex, effectiveRange: nil)
-            // Check if the attrivute is a link
-            if let url = attributeValue as? URL {
+            // Find link attributed to this character and open it
+            findLinkAtIndex(characterIndex) { isFound in
+                if !isFound {
+                    editText()
+                }
+            }
+        } else {
+            editText()
+        }
+    }
+    
+    private func findLinkAtIndex(_ characterIndex: Int,
+                                 _ completion: (Bool) -> (Void)) {
+        var isLink = false
+        let textLength = editorView.textStorage.length
+        editorView.textStorage.enumerateAttribute(NSAttributedString.Key.link,
+                                                in: NSMakeRange(0, textLength),
+                                                options: [.longestEffectiveRangeNotRequired])
+        { value, range, stopEnumeration in
+            if range.contains(characterIndex),
+               let link = value,
+               let url = URL(string: String(describing: link)) {
                 // Open the link in a browser
                 if UIApplication.shared.canOpenURL(url) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 }
-            } else {
-                switchToEditingState()
+                isLink = true
+                stopEnumeration.pointee = true
             }
-        } else {
-            switchToEditingState()
         }
+        // If not link found swotch to edit mode
+        completion(isLink)
     }
     
-    // State
     private func switchToEditingState() {
-        if isEditing { return }
-        isEditing = true
+        if isTextEditing { return }
+        toggleState()
     }
     
-    // Handle state changes
-    override func setEditing(_ editing: Bool, 
-                             animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        if !editing {
+    // Change state
+    @objc private func toggleState() {
+        isTextEditing = !isTextEditing
+        if !isTextEditing {
             editorView.isEditable = false
-            navigationItem.rightBarButtonItem = nil
+            navigationItem.setRightBarButton(nil, animated: true)
             editorView.resignFirstResponder()
-            editorView.dataDetectorTypes = .link
         } else {
-            editButtonItem.tintColor = UIColor.white
-            navigationItem.rightBarButtonItem = editButtonItem
+            navigationItem.setRightBarButton(doneButton.toBarButtonItem(), animated: true)
             editorView.isEditable = true
             editorView.becomeFirstResponder()
         }
@@ -132,7 +159,28 @@ class ViewController: UIViewController {
 }
 
 extension UIColor {
-    public class var appleNotes: UIColor {
+    class var appleNotes: UIColor {
         return UIColor(red: 255/255, green: 187/255, blue: 28/255, alpha: 1)
+    }
+}
+
+extension ViewController: UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, 
+                  shouldChangeTextIn range: NSRange,
+                  replacementText text: String) -> Bool {
+        
+        // Don't spill link attribute to newly typed text
+        editorView.typingAttributes = [
+            .font: UIFont.systemFont(ofSize: 21)
+        ]
+
+        return true
+    }
+}
+
+extension UIButton {
+    func toBarButtonItem() -> UIBarButtonItem? {
+        return UIBarButtonItem(customView: self)
     }
 }
