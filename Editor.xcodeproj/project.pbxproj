@@ -9,13 +9,19 @@
 /* Begin PBXBuildFile section */
 		D95ECB1A2C118B0B004F4541 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95ECB192C118B0B004F4541 /* AppDelegate.swift */; };
 		D95ECB1C2C118B0B004F4541 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95ECB1B2C118B0B004F4541 /* SceneDelegate.swift */; };
-		D95ECB1E2C118B0B004F4541 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95ECB1D2C118B0B004F4541 /* ViewController.swift */; };
+		D95ECB1E2C118B0B004F4541 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95ECB1D2C118B0B004F4541 /* EditorViewController.swift */; };
 		D95ECB212C118B0B004F4541 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D95ECB202C118B0B004F4541 /* Base */; };
 		D95ECB232C118B0D004F4541 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D95ECB222C118B0D004F4541 /* Assets.xcassets */; };
 		D95ECB262C118B0D004F4541 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D95ECB252C118B0D004F4541 /* Base */; };
 		D95ECB312C118B0D004F4541 /* EditorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95ECB302C118B0D004F4541 /* EditorTests.swift */; };
 		D95ECB3B2C118B0E004F4541 /* EditorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95ECB3A2C118B0E004F4541 /* EditorUITests.swift */; };
 		D95ECB3D2C118B0E004F4541 /* EditorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95ECB3C2C118B0E004F4541 /* EditorUITestsLaunchTests.swift */; };
+		D9B51B742C1706BD00E0738B /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B51B732C1706BD00E0738B /* BrowserViewController.swift */; };
+		D9B51B762C18064A00E0738B /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B51B752C18064A00E0738B /* Theme.swift */; };
+		D9B51B792C19988D00E0738B /* EditorInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B51B782C19988D00E0738B /* EditorInteractor.swift */; };
+		D9B51B7C2C19A1E000E0738B /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B51B7B2C19A1E000E0738B /* UITextView.swift */; };
+		D9B51B7E2C19A48200E0738B /* UITextViewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B51B7D2C19A48200E0738B /* UITextViewInteractor.swift */; };
+		D9B51B812C1A55BA00E0738B /* EditLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B51B802C1A55BA00E0738B /* EditLinkViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +45,7 @@
 		D95ECB162C118B0B004F4541 /* Editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Editor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D95ECB192C118B0B004F4541 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D95ECB1B2C118B0B004F4541 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D95ECB1D2C118B0B004F4541 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D95ECB1D2C118B0B004F4541 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		D95ECB202C118B0B004F4541 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D95ECB222C118B0D004F4541 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D95ECB252C118B0D004F4541 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +55,12 @@
 		D95ECB362C118B0D004F4541 /* EditorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EditorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D95ECB3A2C118B0E004F4541 /* EditorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorUITests.swift; sourceTree = "<group>"; };
 		D95ECB3C2C118B0E004F4541 /* EditorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D9B51B732C1706BD00E0738B /* BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
+		D9B51B752C18064A00E0738B /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		D9B51B782C19988D00E0738B /* EditorInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorInteractor.swift; sourceTree = "<group>"; };
+		D9B51B7B2C19A1E000E0738B /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
+		D9B51B7D2C19A48200E0738B /* UITextViewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewInteractor.swift; sourceTree = "<group>"; };
+		D9B51B802C1A55BA00E0738B /* EditLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLinkViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +111,12 @@
 		D95ECB182C118B0B004F4541 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
-				D95ECB192C118B0B004F4541 /* AppDelegate.swift */,
-				D95ECB1B2C118B0B004F4541 /* SceneDelegate.swift */,
-				D95ECB1D2C118B0B004F4541 /* ViewController.swift */,
-				D95ECB1F2C118B0B004F4541 /* Main.storyboard */,
-				D95ECB222C118B0D004F4541 /* Assets.xcassets */,
-				D95ECB242C118B0D004F4541 /* LaunchScreen.storyboard */,
-				D95ECB272C118B0D004F4541 /* Info.plist */,
+				D9B51B842C1C208500E0738B /* Protocols */,
+				D9B51B832C1B886900E0738B /* Controllers */,
+				D9B51B822C1B884C00E0738B /* Delegates */,
+				D9B51B7F2C19F5EC00E0738B /* UI */,
+				D9B51B7A2C19A1CA00E0738B /* Extensions */,
+				D9B51B772C18067000E0738B /* Resources */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -125,6 +136,61 @@
 				D95ECB3C2C118B0E004F4541 /* EditorUITestsLaunchTests.swift */,
 			);
 			path = EditorUITests;
+			sourceTree = "<group>";
+		};
+		D9B51B772C18067000E0738B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D95ECB1F2C118B0B004F4541 /* Main.storyboard */,
+				D95ECB222C118B0D004F4541 /* Assets.xcassets */,
+				D95ECB242C118B0D004F4541 /* LaunchScreen.storyboard */,
+				D95ECB272C118B0D004F4541 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D9B51B7A2C19A1CA00E0738B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D9B51B7B2C19A1E000E0738B /* UITextView.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D9B51B7F2C19F5EC00E0738B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				D9B51B752C18064A00E0738B /* Theme.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		D9B51B822C1B884C00E0738B /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				D95ECB1B2C118B0B004F4541 /* SceneDelegate.swift */,
+				D95ECB192C118B0B004F4541 /* AppDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		D9B51B832C1B886900E0738B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D9B51B802C1A55BA00E0738B /* EditLinkViewController.swift */,
+				D9B51B732C1706BD00E0738B /* BrowserViewController.swift */,
+				D95ECB1D2C118B0B004F4541 /* EditorViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D9B51B842C1C208500E0738B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				D9B51B782C19988D00E0738B /* EditorInteractor.swift */,
+				D9B51B7D2C19A48200E0738B /* UITextViewInteractor.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,9 +324,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D95ECB1E2C118B0B004F4541 /* ViewController.swift in Sources */,
+				D9B51B7C2C19A1E000E0738B /* UITextView.swift in Sources */,
+				D95ECB1E2C118B0B004F4541 /* EditorViewController.swift in Sources */,
+				D9B51B792C19988D00E0738B /* EditorInteractor.swift in Sources */,
+				D9B51B742C1706BD00E0738B /* BrowserViewController.swift in Sources */,
+				D9B51B7E2C19A48200E0738B /* UITextViewInteractor.swift in Sources */,
+				D9B51B762C18064A00E0738B /* Theme.swift in Sources */,
 				D95ECB1A2C118B0B004F4541 /* AppDelegate.swift in Sources */,
 				D95ECB1C2C118B0B004F4541 /* SceneDelegate.swift in Sources */,
+				D9B51B812C1A55BA00E0738B /* EditLinkViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,8 +514,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Editor/Info.plist;
+				INFOPLIST_FILE = Editor/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -469,8 +542,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Editor/Info.plist;
+				INFOPLIST_FILE = Editor/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

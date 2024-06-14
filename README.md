@@ -14,4 +14,4 @@
 ![editor](https://github.com/moubarak/text-editor/assets/885084/5f86f355-5177-4d86-a394-b956d6fca091)
 
 ## Note
-This code is based on the MVC architecture and UIKit. It is missing some basic features like scrolling, persistance, etc.
+This code is based on the MVC architecture and UIKit. It is missing some basic features like persistence, etc.
