@@ -165,6 +165,11 @@ class EditorViewController: UIViewController {
 }
 
 extension EditorViewController: UITextViewDelegate, EditorInteractor, WKUIDelegate {
+    func removeURL(in range: NSRange) {
+        editorView.textStorage.removeAttribute(.link, range: range)
+        editorView.textStorage.removeAttribute(.textItemTag, range: range)
+    }
+    
     func replaceURL(in range: NSRange, with url: URL, title: String?) {
         editorView.textStorage.replaceCharacters(in: range, with: title ?? url.absoluteString)
         let editedRange = NSMakeRange(range.location, (title ?? url.absoluteString).count)

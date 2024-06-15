@@ -9,4 +9,6 @@ import Foundation
 
 protocol EditorInteractor {
     func replaceURL(in range: NSRange, with url: URL, title: String?)
+    
+    func removeURL(in range: NSRange)
 }

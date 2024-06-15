@@ -21,10 +21,11 @@ class EditLinkViewController: UIViewController {
     private var range: NSRange!
     private var name: String!
     private var urlTextView: UITextView!
-    private var nameTextView: UITextField!
+    private var nameTextField: UITextField!
     private var linkToLabel: UILabel!
     private var nameLabel: UILabel!
     private var doneButton: UIBarButtonItem!
+    private var removeLinkButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,27 +86,19 @@ class EditLinkViewController: UIViewController {
         nameLabel.textColor = .darkGray
         view.addSubview(nameLabel)
         
-        nameTextView = UITextField()
-        nameTextView.borderStyle = .roundedRect
-        nameTextView.text = name
-        nameTextView.clearButtonMode = .unlessEditing
-//        let attributedString = NSMutableAttributedString(string: name)
-//        let paragraphStyle = NSMutableParagraphStyle()
-//        paragraphStyle.lineBreakMode = .byWordWrapping // .byTruncatingTail also works
-//        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
-//        nameTextView.attributedText = attributedString
-        nameTextView.font = defaultFont
-//        nameTextView.textContainer.lineBreakMode = .byTruncatingTail
-//        nameTextView.textContainer.maximumNumberOfLines = 1
-//        nameTextView.tintColor = .black
-//        nameTextView.isScrollEnabled = true
-//        nameTextView.dataDetectorTypes = []
-        nameTextView.autocorrectionType = .no
-//        nameTextView.autocapitalizationType = .none
-//        nameTextView.isSelectable = true
-//        nameTextView.isEditable = true
+        nameTextField = UITextField()
+        nameTextField.borderStyle = .roundedRect
+        nameTextField.text = name
+        nameTextField.clearButtonMode = .unlessEditing
+        nameTextField.font = defaultFont
+        nameTextField.autocorrectionType = .no
+        view.addSubview(nameTextField)
         
-        view.addSubview(nameTextView)
+        removeLinkButton = UIButton(type: .custom)
+        removeLinkButton.setTitle("Remove Link", for: .normal)
+        removeLinkButton.setTitleColor(.red, for: .normal)
+        removeLinkButton.addTarget(self, action: #selector(removeLink), for: .touchUpInside)
+        view.addSubview(removeLinkButton)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -113,10 +106,10 @@ class EditLinkViewController: UIViewController {
         
         // Autolayout
         urlTextView.translatesAutoresizingMaskIntoConstraints = false
-        nameTextView.translatesAutoresizingMaskIntoConstraints = false
+        nameTextField.translatesAutoresizingMaskIntoConstraints = false
         linkToLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+        removeLinkButton.translatesAutoresizingMaskIntoConstraints = false
         let safeViewMargins = self.view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             linkToLabel.leadingAnchor.constraint(equalTo: urlTextView.leadingAnchor),
@@ -130,10 +123,13 @@ class EditLinkViewController: UIViewController {
             nameLabel.leadingAnchor.constraint(equalTo: urlTextView.leadingAnchor),
             nameLabel.topAnchor.constraint(equalTo: urlTextView.bottomAnchor, constant: 30),
             
-            nameTextView.leadingAnchor.constraint(equalTo: safeViewMargins.leadingAnchor, constant: 20),
-            nameTextView.trailingAnchor.constraint(equalTo: urlTextView.trailingAnchor),
-            nameTextView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
-            nameTextView.heightAnchor.constraint(equalToConstant: 45),
+            nameTextField.leadingAnchor.constraint(equalTo: safeViewMargins.leadingAnchor, constant: 20),
+            nameTextField.trailingAnchor.constraint(equalTo: urlTextView.trailingAnchor),
+            nameTextField.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
+            nameTextField.heightAnchor.constraint(equalToConstant: 45),
+            
+            removeLinkButton.leadingAnchor.constraint(equalTo: urlTextView.leadingAnchor),
+            removeLinkButton.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 30),
         ])
     }
     
@@ -145,10 +141,15 @@ class EditLinkViewController: UIViewController {
         self.name = name
     }
     
+    @objc func removeLink() {
+        editorInteractor?.removeURL(in: range)
+        dismiss(animated: true)
+    }
+    
     @objc func doneTapped() {
         
         var name: String?
-        if let newName = nameTextView.text,
+        if let newName = nameTextField.text,
            !newName.isEmpty {
             name = newName
         }
